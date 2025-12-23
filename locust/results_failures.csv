@@ -1,0 +1,5 @@
+Method,Name,Error,Occurrences
+POST,/ingest,"ConnectionResetError(54, 'Connection reset by peer')",270
+POST,/ingest,RemoteDisconnected('Remote end closed connection without response'),2
+GET,/analyze,"ConnectionResetError(54, 'Connection reset by peer')",20
+POST,/ingest,HTTPError('502 Server Error: Bad Gateway for url: /ingest'),6

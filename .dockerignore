@@ -1,0 +1,7 @@
+.git
+bin
+*.log
+*.md
+k8s
+locust
+

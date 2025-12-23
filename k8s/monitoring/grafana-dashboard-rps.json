@@ -1,0 +1,38 @@
+{
+  "annotations": {
+    "list": []
+  },
+  "editable": true,
+  "gnetId": null,
+  "graphTooltip": 0,
+  "panels": [
+    {
+      "datasource": "Prometheus",
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 1,
+      "targets": [
+        {
+          "expr": "rate(metrics_ingest_total[1m])",
+          "legendFormat": "ingest rps",
+          "refId": "A"
+        }
+      ],
+      "title": "Ingest RPS",
+      "type": "timeseries"
+    }
+  ],
+  "refresh": "10s",
+  "schemaVersion": 38,
+  "title": "Streaming Service - RPS",
+  "uid": "streaming-rps",
+  "version": 1
+}

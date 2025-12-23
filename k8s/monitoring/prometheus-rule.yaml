@@ -1,0 +1,19 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: streaming-service-alerts
+  namespace: highload
+  labels:
+    release: kube-prometheus-stack
+spec:
+  groups:
+    - name: streaming-service.rules
+      rules:
+        - alert: HighAnomalyRate
+          expr: increase(metrics_anomaly_total[1m]) > 5
+          for: 1m
+          labels:
+            severity: warning
+          annotations:
+            summary: "High anomaly rate"
+            description: "More than 5 anomalies detected in the last minute."
