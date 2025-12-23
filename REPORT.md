@@ -29,7 +29,6 @@
 2) Сервис принимает данные, обрабатывает в фоне.
 3) Результаты сохраняются в Redis и экспортируются в Prometheus.
 
-[Скриншот 2: архитектурная схема или краткая диаграмма (можно рисованную в draw.io / любой редактор)]
 
 ---
 
@@ -46,11 +45,16 @@
 - `main.go` (299 строк кода)
 - `Dockerfile`
 
-[Скриншот 3: локальный запуск сервиса — `./scripts/run-local.sh`]
-[Скриншот 4: `/health` = 200 OK]
-[Скриншот 5: `/ingest` = 202 Accepted]
-[Скриншот 6: `/analyze` JSON]
-[Скриншот 7: Redis keys `last_metric`, `last_analysis`, `metrics`]
+[Скриншот 2: локальный запуск сервиса — `./scripts/run-local.sh`]
+![01-env](screenshots/02.png)
+[Скриншот 3: `/health` = 200 OK]
+![01-env](screenshots/03.png)
+[Скриншот 4: `/ingest` = 202 Accepted]
+![01-env](screenshots/04.png)
+[Скриншот 5: `/analyze` JSON]
+![01-env](screenshots/05.png)
+[Скриншот 6: Redis keys `last_metric`, `last_analysis`, `metrics`]
+![01-env](screenshots/06.png)
 
 ---
 
@@ -63,7 +67,8 @@
 docker build -t streaming-service:latest .
 ```
 
-[Скриншот 8: `docker images streaming-service:latest` с размером образа]
+[Скриншот 7: `docker images streaming-service:latest` с размером образа]
+![01-env](screenshots/07.png)
 
 ---
 
@@ -79,10 +84,10 @@ Kubernetes компоненты:
 
 Команды (ссылки на `README.md`).
 
-[Скриншот 9: `kubectl get pods -n highload` (Redis + сервис Running)]
-[Скриншот 10: `kubectl get svc -n highload`]
-[Скриншот 11: `kubectl get ingress -n highload`]
-[Скриншот 12: `kubectl get hpa -n highload`]
+[Скриншот 8: `kubectl get pods -n highload` (Redis + сервис Running)]
+![01-env](screenshots/08.png)
+[Скриншот 9: `kubectl get hpa -n highload`]
+![01-env](screenshots/09.png)
 
 ---
 
@@ -90,9 +95,12 @@ Kubernetes компоненты:
 
 Тест через `minikube service ... --url` и Host‑header `streaming.local`.
 
-[Скриншот 13: вывод `minikube service -n ingress-nginx ingress-nginx-controller --url`]
-[Скриншот 14: `curl /health` через ingress]
-[Скриншот 15: `curl /analyze` через ingress]
+[Скриншот 10: вывод `minikube service -n ingress-nginx ingress-nginx-controller --url`]
+![01-env](screenshots/10.png)
+[Скриншот 11: `curl /health` через ingress]
+![01-env](screenshots/11.png)
+[Скриншот 12: `curl /analyze` через ingress]
+![01-env](screenshots/12.png)
 
 ---
 
@@ -105,11 +113,14 @@ Kubernetes компоненты:
 - Latency (p95)
 - Anomalies
 
-[Скриншот 16: Prometheus Targets (streaming-service = UP)]
-[Скриншот 17: Grafana dashboard RPS]
-[Скриншот 18: Grafana dashboard Latency]
-[Скриншот 19: Grafana dashboard Anomalies]
-[Скриншот 20: Alertmanager Alerts]
+[Скриншот 13: Prometheus Targets (streaming-service = UP)]
+![01-env](screenshots/13.png)
+[Скриншот 14: Grafana dashboard RPS]
+![01-env](screenshots/14.png)
+[Скриншот 15: Grafana dashboard Latency]
+![01-env](screenshots/15.png)
+[Скриншот 16: Grafana dashboard Anomalies]
+![01-env](screenshots/16.png)
 
 ---
 
@@ -132,8 +143,10 @@ HOST_HEADER=streaming.local python3 -m locust -f locust/locustfile.py --headless
 |---|---:|---:|---:|---:|---:|
 | 500 RPS | 500 | ___ | ___ | ___ | ___ |
 
-[Скриншот 21: `locust/results_stats.csv` или вывод Locust]
-[Скриншот 22: `kubectl get hpa -n highload -w` (рост реплик)]
+[Результаты нагрузочного тестирования находятся: `locust/results_stats.csv`]
+
+[Скриншот 17: `kubectl get hpa -n highload -w` (рост реплик под нагрузкой)]
+![01-env](screenshots/17.png)
 
 ---
 
@@ -143,16 +156,12 @@ HOST_HEADER=streaming.local python3 -m locust -f locust/locustfile.py --headless
 - стабильный поток (RPS ~ 400–450) дает `rps_avg` близкий к фактическим значениям
 - всплеск RPS (например, 900) фиксируется как `anomaly=true`
 
-[Скриншот 23: `/analyze` на стабильном потоке]
-[Скриншот 24: `/analyze` после всплеска, anomaly=true]
-
 ---
 
 ## 10. Анализ результатов
 
-- HPA отрабатывает рост нагрузки, увеличивая реплики до ___.
-- p95 latency на 500 RPS составляет ___ ms.
-- Ошибки (5xx) отсутствуют или < ___%.
+- HPA отрабатывает рост нагрузки, увеличивая реплики до 4.
+- Ошибки (5xx) отсутствуют 
 - Z-score корректно выявляет резкие всплески.
 
 Предложения по улучшению:
