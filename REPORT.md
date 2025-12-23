@@ -46,14 +46,23 @@
 - `Dockerfile`
 
 [Скриншот 2: локальный запуск сервиса — `./scripts/run-local.sh`]
+
 ![01-env](screenshots/02.png)
+
 [Скриншот 3: `/health` = 200 OK]
+
 ![01-env](screenshots/03.png)
+
 [Скриншот 4: `/ingest` = 202 Accepted]
+
 ![01-env](screenshots/04.png)
+
 [Скриншот 5: `/analyze` JSON]
+
 ![01-env](screenshots/05.png)
+
 [Скриншот 6: Redis keys `last_metric`, `last_analysis`, `metrics`]
+
 ![01-env](screenshots/06.png)
 
 ---
@@ -68,6 +77,7 @@ docker build -t streaming-service:latest .
 ```
 
 [Скриншот 7: `docker images streaming-service:latest` с размером образа]
+
 ![01-env](screenshots/07.png)
 
 ---
@@ -85,8 +95,11 @@ Kubernetes компоненты:
 Команды (ссылки на `README.md`).
 
 [Скриншот 8: `kubectl get pods -n highload` (Redis + сервис Running)]
+
 ![01-env](screenshots/08.png)
+
 [Скриншот 9: `kubectl get hpa -n highload`]
+
 ![01-env](screenshots/09.png)
 
 ---
@@ -114,12 +127,19 @@ Kubernetes компоненты:
 - Anomalies
 
 [Скриншот 13: Prometheus Targets (streaming-service = UP)]
+
 ![01-env](screenshots/13.png)
+
 [Скриншот 14: Grafana dashboard RPS]
+
 ![01-env](screenshots/14.png)
+
 [Скриншот 15: Grafana dashboard Latency]
+
 ![01-env](screenshots/15.png)
+
 [Скриншот 16: Grafana dashboard Anomalies]
+
 ![01-env](screenshots/16.png)
 
 ---
@@ -146,6 +166,7 @@ HOST_HEADER=streaming.local python3 -m locust -f locust/locustfile.py --headless
 [Результаты нагрузочного тестирования находятся: `locust/results_stats.csv`]
 
 [Скриншот 17: `kubectl get hpa -n highload -w` (рост реплик под нагрузкой)]
+
 ![01-env](screenshots/17.png)
 
 ---
