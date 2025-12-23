@@ -12,7 +12,7 @@
 
 Цель проекта — реализовать сервис для приема потоковых метрик, выполнить статистическую аналитику (rolling average, z-score), развернуть сервис в Kubernetes с HPA и мониторингом (Prometheus, Grafana, Alertmanager). Решение ориентировано на IoT/edge-метрики или API-нагрузку.
 
-[Скриншот 1: версии окружения — вывод `go version`, `docker --version`, `minikube version`, `kubectl version --client`, `helm version`, `python3 --version`]
+![01-env](screenshots/01-env.png)
 
 ---
 
@@ -176,4 +176,3 @@ HOST_HEADER=streaming.local python3 -m locust -f locust/locustfile.py --headless
 - Grafana dashboards: `k8s/monitoring/*.json`
 - Locust: `locust/locustfile.py`
 - Логи и CSV: `locust/results_*`
-
